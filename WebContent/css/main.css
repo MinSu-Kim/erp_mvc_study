@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+/* main */
+.box{
+  display: inline-block;
+  /*왼쪽부터 채워지다가 자리가 모자라면 아래로 자연스럽게 흐르듯이 배치*/
+  float: left;/*n스크린 기기에 대응*/   
+}
+
+/*loginForm*/
+ul {
+    list-style: none;
+}
+
+li {
+    margin: 20px;
+}
+
+li label {
+    width: 120px;
+    float: left;
+}
+
+fieldset {
+    margin: 15px;
+}
+
+a {
+    text-decoration: none;
+}

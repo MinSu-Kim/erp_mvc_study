@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+     <Resource name="jdbc/localhikari" auth="Container"
+            factory="com.zaxxer.hikari.HikariJNDIFactory"
+            type="javax.sql.DataSource"        
+            minimumIdle="5" 
+            maximumPoolSize="10"
+            connectionTimeout="300000"        
+            driverClassName="oracle.jdbc.driver.OracleDriver"
+            jdbcUrl="jdbc:oracle:thin:@127.0.0.1:1521:orcl"        
+            username="erp_final_jsp"
+            password="rootroot"
+            removeAbandoned="true"
+            removeAbandonedTimeout="5"
+            logAbandoned="true"
+        />
+</Context>
