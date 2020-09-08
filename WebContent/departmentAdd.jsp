@@ -10,18 +10,20 @@
 $(function() {
  
     $('#reg').on("click", function(){
-        var newTitle = {
-                titleNo:   $('#titleNo').val(), 
-                titleName: $('#titleName').val() };
+        var department = {
+                deptNo:   $('#deptNo').val(), 
+                deptName: $('#deptName').val(),
+                floor: $('#floor').val()
+                };
         
         $.ajax({
             type : "POST",
-            url : "titleAdd.do",
+            url : "deptAdd.do",
             cache:false,
-            data : JSON.stringify(newTitle),
+            data : JSON.stringify(department),
             complete : function(data){
                     alert("추가하였습니다.");
-                    window.location.href = "titleList.do";
+                    window.location.href = "deptList.do";
             }
         });
 
@@ -33,15 +35,19 @@ $(function() {
 </head>
 <body>
     <div>
-        <label for="titleNo">직책번호</label> 
-        <input name='titleNo' id="titleNo" value="${param.nextNo }">
+        <label for="deptNo">부서번호</label> 
+        <input type="number" name='deptNo' id="deptNo" value="${param.nextNo }">
     </div>
     <div>
-        <label for="titleName">직책명</label> 
-        <input name='titleName' id="titleName" />
+        <label for="deptName">부서명</label> 
+        <input type="text" name='deptName' id="deptName" />
     </div>
     <div>
-        <button id="reg">직책 추가</button>
+        <label for="floor">위치</label> 
+        <input type="number" name='floor' id="floor" />
+    </div>
+    <div>
+        <button id="reg">부서 추가</button>
         <button type="reset">취소</button>
     </div>
 </body>

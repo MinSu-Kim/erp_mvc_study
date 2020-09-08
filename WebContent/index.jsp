@@ -13,5 +13,6 @@
 <c:set var="con" value="${HikariJNDI.getConnection()}"/>
 <c:out value="${con}"/><br>
 <a href="titleList.do">직책 목록</a>
+<a href="deptList.do">부서 목록</a>
 </body>
 </html>
