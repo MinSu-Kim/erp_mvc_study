@@ -1,5 +1,7 @@
 package erp_mvc_study.dao;
 
+import java.util.List;
+
 import erp_mvc_study.dto.Employee;
 
 public interface EmployeeDao {
@@ -14,4 +16,6 @@ public interface EmployeeDao {
     int updateEmployee(Employee emp);
     
     int deleteEmployee(Employee emp);
+    
+    List<Employee> selectEmployeeByAll();
 }

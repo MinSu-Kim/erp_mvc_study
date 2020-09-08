@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import erp_mvc_study.dao.EmployeeDao;
 import erp_mvc_study.ds.HikariJNDI;
@@ -74,6 +76,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
 
+
     @Override
     public Employee selectEmployeeByEmail(Employee emp) {
         String sql = " SELECT EMP_NO, EMP_NAME, TNO, MANAGER, SALARY, DNO, EMAIL, REGDATE, TEL, PASSWD" 
@@ -92,20 +95,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             throw new CustomSQLException(e);
         }
         return null;
-    }
-
-    private Employee getEmplyee(ResultSet rs) throws SQLException {
-        int empNo = rs.getInt("EMP_NO");
-        String empName= rs.getString("EMP_NAME");
-        Title title = new Title(rs.getInt("TNO"));
-        Employee manager = new Employee(rs.getInt("MANAGER"));
-        int salary = rs.getInt("SALARY");
-        Department dept = new Department(rs.getInt("DNO"));
-        String email = rs.getString("EMAIL");
-        Date regDate = rs.getTimestamp("REGDATE");
-        String tel = rs.getString("TEL");
-        
-        return new Employee(empNo, empName, title, manager, salary, dept, email, regDate, tel);
     }
 
     @Override
@@ -138,6 +127,53 @@ public class EmployeeDaoImpl implements EmployeeDao {
         } catch (SQLException e) {
             throw new CustomSQLException(e);
         }
+    }
+    
+    private Employee getEmplyee(ResultSet rs) throws SQLException {
+        int empNo = rs.getInt("EMP_NO");
+        String empName= rs.getString("EMP_NAME");
+        Title title = new Title(rs.getInt("TNO"));
+        Employee manager = new Employee(rs.getInt("MANAGER"));
+        int salary = rs.getInt("SALARY");
+        Department dept = new Department(rs.getInt("DNO"));
+        String email = rs.getString("EMAIL");
+        Date regDate = rs.getTimestamp("REGDATE");
+        String tel = rs.getString("TEL");
+        String picUrl = rs.getString("PIC_URL");
+        try {
+            String titleName = rs.getString("TITLE_NAME");
+            title.setTitleName(titleName);
+            
+            String deptName = rs.getString("DEPT_NAME");
+            dept.setDeptName(deptName);
+            
+            String managerName = rs.getString("MANAGER_NAME");
+            manager.setEmpName(managerName);
+        }catch(SQLException e) {
+            
+        }
+        return new Employee(empNo, empName, title, manager, salary, dept, email, regDate, tel, picUrl);
+    }
+    
+
+    @Override
+    public List<Employee> selectEmployeeByAll() {
+        String sql = "SELECT EMP_NO, EMP_NAME, TNO, MANAGER, SALARY, DNO, REGDATE, TEL, EMAIL, PIC_URL, TITLE_NAME, DEPT_NAME, MANAGER_NAME "
+                    +  "FROM VW_EMPLOYEE_JOIN";
+        try(Connection con = HikariJNDI.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()){
+            if (rs.next()) {
+                List<Employee> list = new ArrayList<>();
+                do {
+                    list.add(getEmplyee(rs));
+                }while(rs.next());
+                return list;
+            }
+        } catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }
+        return null;
     }
 
 }

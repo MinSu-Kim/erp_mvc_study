@@ -13,6 +13,7 @@ public class Employee {
 	private String passwd;
 	private Date regDate;
 	private String tel;
+	private String picUrl;
 
 	public Employee() {
 		// TODO Auto-generated constructor stub
@@ -23,7 +24,7 @@ public class Employee {
     }
 
     public Employee(int empNo, String empName, Title title, Employee manager, int salary, Department dept, String email,
-            Date regDate, String tel) {
+           Date regDate, String tel, String picUrl) {
         this.empNo = empNo;
         this.empName = empName;
         this.title = title;
@@ -33,8 +34,8 @@ public class Employee {
         this.email = email;
         this.regDate = regDate;
         this.tel = tel;
+        this.picUrl = picUrl;
     }
-
 
     public Employee(String email) {
         this.email = email;
@@ -120,11 +121,19 @@ public class Employee {
         this.tel = tel;
     }
 
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     @Override
     public String toString() {
         return String.format(
-                "Employee [empNo=%s, empName=%s, title=%s, manager=%s, salary=%s, dept=%s, email=%s, passwd=%s, regDate=%s, tel=%s]",
-                empNo, empName, title, manager, salary, dept, email, passwd, regDate, tel);
+                "Employee [empNo=%s, empName=%s, title=%s, manager=%s, salary=%s, dept=%s, email=%s, passwd=%s, regDate=%s, tel=%s, picUrl=%s]",
+                empNo, empName, title, manager.getEmpNo(), salary, dept.getDeptNo(), email, passwd, regDate, tel, picUrl);
     }
 
     
